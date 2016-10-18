@@ -4,6 +4,23 @@ WebScraper::WebScraper(std::string link, int level, std::vector<std::string> lin
 	init(link, level);
 	linkOfLists = scrape(s);
 }
+size_t CurlWrite_CallbackFunc_StdString(void *contents, size_t size, size_t nmemb, std::string *s)
+{
+    size_t newLength = size*nmemb;
+    size_t oldLength = s->size();
+    try
+    {
+        s->resize(oldLength + newLength);
+    }
+    catch(std::bad_alloc &e)
+    {
+        //handle memory problem
+        return 0;
+    }
+
+    std::copy((char*)contents,(char*)contents+newLength,s->begin()+oldLength);
+    return size*nmemb;
+}
 
 bool WebScraper::init(std::string link, int level)
 {
@@ -37,23 +54,7 @@ bool WebScraper::init(std::string link, int level)
     }
 }
 
-size_t WebScraper::CurlWrite_CallbackFunc_StdString(void *contents, size_t size, size_t nmemb, std::string *s)
-{
-    size_t newLength = size*nmemb;
-    size_t oldLength = s->size();
-    try
-    {
-        s->resize(oldLength + newLength);
-    }
-    catch(std::bad_alloc &e)
-    {
-        //handle memory problem
-        return 0;
-    }
 
-    std::copy((char*)contents,(char*)contents+newLength,s->begin()+oldLength);
-    return size*nmemb;
-}
 
 std::vector<std::string> WebScraper::scrape(std::string s)
 {
