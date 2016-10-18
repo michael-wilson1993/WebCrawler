@@ -35,7 +35,7 @@ bool WebScraper::init(std::string link, int level)
        //curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L); //only for https
 	     curl_easy_setopt (curl, CURLOPT_PORT , 80);
 	     //curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0L); //only for https
-        //curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, CurlWrite_CallbackFunc_StdString);
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, CurlWrite_CallbackFunc_StdString);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, &s);
         //curl_easy_setopt (curl, CURLOPT_VERBOSE, 1L); //remove this to disable verbose output
 	
