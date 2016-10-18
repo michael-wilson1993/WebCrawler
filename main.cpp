@@ -17,12 +17,12 @@ int main()
     string url = "www.wilsondm.com";
     cout << "please enter Website url\n";
     cin >> url;
-std::vector<std::string> v;
-    WebScraper Crawler(url, 1, v);
-    std::vector<std::string> list = Crawler.getUrls();
+    std::vector<std::string> v;
+    WebScraper Crawler(url, 2, v);
     
-    for(int x = 0; x < list.size();x++)
-      cout << list[x] << endl;
+    cout << "\n\n Disp \n\n";
+    for(int x = 0; x < v.size();x++)
+      cout << x << ": " << v[x] << endl;
 
 
 

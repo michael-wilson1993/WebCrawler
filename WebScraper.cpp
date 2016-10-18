@@ -1,8 +1,23 @@
 #include "WebScraper.h"
-WebScraper::WebScraper(std::string link, int level, std::vector<std::string> links)
+
+
+WebScraper::WebScraper(std::string link, int level, std::vector<std::string> &links)
 {
-	init(link, level);
-	linkOfLists = scrape(s);
+   if(level != 0)
+   {
+      WebScraper *tempCrawler;
+      init(link, level);
+      linkOfLists = scrape(s);
+     for (int x = 0; x < linkOfLists.size(); x++)
+     {
+	     tempCrawler = new WebScraper(linkOfLists[x], level-1, links);
+       delete tempCrawler;
+     }
+      //if(linkOfLists.size() > 0)
+	     links.insert( links.end(), linkOfLists.begin(), linkOfLists.end() );
+   }
+   
+
 }
 size_t CurlWrite_CallbackFunc_StdString(void *contents, size_t size, size_t nmemb, std::string *s)
 {
@@ -41,7 +56,7 @@ bool WebScraper::init(std::string link, int level)
 	
 
         /* Perform the request, res will get the return code */
-        res = curl_easy_perform(curl);
+	 res = curl_easy_perform(curl);
         /* Check for errors */
         if(res != CURLE_OK)
         {
