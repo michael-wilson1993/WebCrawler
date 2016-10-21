@@ -23,6 +23,4 @@ int main()
     cout << "\n\n Disp \n\n";
     for(int x = 0; x < v.size();x++)
        cout << x << ": " << v[x] << endl;
-    cout << "HIT";
-    cout << "You sunk my battleship!";
 }
