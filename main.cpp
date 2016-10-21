@@ -7,6 +7,7 @@
 #include "curler/include/curl/curl.h"
 #include "WebScraper.h"
 
+
 using namespace std;
 
 
