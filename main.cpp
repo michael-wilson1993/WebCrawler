@@ -6,8 +6,6 @@
 #include "curler/include/curl/multi.h"
 #include "curler/include/curl/curl.h"
 #include "WebScraper.h"
-
-
 using namespace std;
 
 
