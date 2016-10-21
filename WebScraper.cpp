@@ -1,16 +1,19 @@
 #include "WebScraper.h"
-
+#include <iostream>
+#include <string>
 
 WebScraper::WebScraper(std::string link, int level, std::vector<std::string> &links)
 {
    if(level != 0)
    {
+      std::cout << "\n\n\n\n" << "level: " << level << "\n";
+      std::cout << "connecting to: " << link << '\n\n\n';
       WebScraper *tempCrawler;
       init(link, level);
       linkOfLists = scrape(s);
      for (int x = 0; x < linkOfLists.size(); x++)
      {
-	     tempCrawler = new WebScraper(linkOfLists[x], level-1, links);
+	tempCrawler = new WebScraper(linkOfLists[x], level-1, links);
        delete tempCrawler;
      }
       //if(linkOfLists.size() > 0)
@@ -21,7 +24,7 @@ WebScraper::WebScraper(std::string link, int level, std::vector<std::string> &li
 }
 size_t CurlWrite_CallbackFunc_StdString(void *contents, size_t size, size_t nmemb, std::string *s)
 {
-    size_t newLength = size*nmemb;
+   size_t newLength = size*nmemb;
     size_t oldLength = s->size();
     try
     {
@@ -52,7 +55,8 @@ bool WebScraper::init(std::string link, int level)
 	     //curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0L); //only for https
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, CurlWrite_CallbackFunc_StdString);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, &s);
-        //curl_easy_setopt (curl, CURLOPT_VERBOSE, 1L); //remove this to disable verbose output
+//	curl_easy_setopt(curl, CURLOPT_NOBODY, 1);
+	//curl_easy_setopt (curl, CURLOPT_VERBOSE, 1L); //remove this to disable verbose output
 	
 
         /* Perform the request, res will get the return code */
@@ -102,7 +106,7 @@ std::vector<std::string> WebScraper::scrape(std::string s)
           x++;
         }
         refFound = false;
-        if (temp[0] == 'h' && temp[3] == 'p')
+        if (temp[0] == 'h' && temp[3] == 'p' && temp[temp.size()-1] == '/')
           ret.push_back(temp);
       }
     }

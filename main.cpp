@@ -18,7 +18,7 @@ int main()
     cout << "please enter Website url\n";
     cin >> url;
     std::vector<std::string> v;
-    WebScraper Crawler(url, 2, v);
+    WebScraper Crawler(url, 3, v);
     
     cout << "\n\n Disp \n\n";
     for(int x = 0; x < v.size();x++)
