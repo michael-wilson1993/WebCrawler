@@ -8,7 +8,6 @@
 #include "WebScraper.h"
 using namespace std;
 
-
  
 
 int main()
