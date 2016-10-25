@@ -9,16 +9,35 @@ size_t write_data(void *ptr, size_t size, size_t nmemb, FILE *stream) {
 
 imageScraper::imageScraper(std::string link)
 {
-
-	    CURL* curl;
+   //const int FILENAME_MAX = 250;
+   std::string forbidChar = "/";
+    CURL* curl;
     FILE* fp;
     CURLcode res;
-    char* url = "http://pimg.tradeindia.com/01063301/b/1/CRO-Oscilloscope.jpg";
-    char outfilename[FILENAME_MAX] = "C:\\bbb.jpg";
-    curl = curl_easy_init();
+    bool flag = false;
+    char outfilename[FILENAME_MAX];
+
+
+    int xx;
+    for(int x = 0; x < link.size(); x++)
+    {
+        if(link[x] != '/')
+            outfilename[x] = link[x];
+        else
+            outfilename[x] = '_';
+        flag = false;
+       xx = x;
+    }
+
+    outfilename[0]='i';
+    outfilename[1]='m';
+    outfilename[2]='g';
+    outfilename[3]='/';
+
+       curl = curl_easy_init();
     if (curl)
     {
-        fp = fopen(outfilename, "wb");
+       fp = fopen(outfilename, "wb");
         curl_easy_setopt(curl, CURLOPT_URL, link.c_str());
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);

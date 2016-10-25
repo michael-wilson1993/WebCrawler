@@ -14,9 +14,7 @@ using namespace std;
 
 int main()
 {
-        imageScraper img("http://vignette4.wikia.nocookie.net/disney/images/e/ea/Moana_Disney_wiki_slider.jpg/revision/latest/scale-to-width-down/670?cb=20161008043003");
 
-/*
     string url = "www.wilsondm.com";
     cout << "please enter Website url\n";
     int depth = 1;
@@ -32,5 +30,5 @@ int main()
 	
     //for(int x = 0; x < v.size();x++)
        //cout << x << ": " << v[x] << endl;
-       */
+       
 }

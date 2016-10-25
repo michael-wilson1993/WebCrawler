@@ -1,6 +1,7 @@
 #include "WebScraper.h"
 #include <iostream>
 #include <string>
+#include "imageScraper.h"
 /*
 WebScraper::WebScraper(std::string link, int level, std::vector<std::string> &links)
 {
@@ -134,6 +135,12 @@ std::vector<std::string> WebScraper::scrape(std::string s)
         refFound = false;
         if (temp[0] == 'h' && temp[3] == 'p' && temp[temp.size()-1] == '/')
           ret.push_back(temp);
+        if (temp[temp.size()-4] == '.' && temp[temp.size()-3] == 'j' && temp[temp.size()-2] == 'p' && temp[temp.size()-1] == 'g')
+          imageScraper imageDownload(temp);
+        if (temp[temp.size()-4] == '.' && temp[temp.size()-3] == 'p' && temp[temp.size()-2] == 'n' && temp[temp.size()-1] == 'g')
+          imageScraper imageDownload(temp);
+        if (temp[temp.size()-5] == '.' && temp[temp.size()-4] == 'j' && temp[temp.size()-3] == 'p' && temp[temp.size()-2] == 'e' && temp[temp.size()-1] == 'g')
+          imageScraper imageDownload(temp);
       }
     }
     x++;
