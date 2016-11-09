@@ -100,17 +100,55 @@ bool WebScraper::init(std::string link, int level)
 }
 }
 
-
+std::string grabImageLink(std::string file, int index)
+{
+  int x = index, y = index;
+  std::string ret;
+  while(file[x] != '"')
+    x--;
+  x++;
+  while(file[x] != '"')
+  {
+    ret += file[x];
+    x++;
+  }
+  return ret;
+}
 
 std::vector<std::string> WebScraper::scrape(std::string s)
 {
   std::vector<std::string> ret;
-  int x = 0;
+  int x = 0 ,y;
   int size = s.size();
   bool refFound = false;
   std::string temp;
   while(x < size)
   {
+    //finding images
+
+    if(x > 10)
+    {
+      std::string imageTemp = "";
+      if(s[x-1] == 'g' && s[x-2] == 'n' && s[x-3] == 'p' && s[x-4] == '.')
+      {
+        if(s[x] == '"' || s[x] == '/')
+        {
+          imageScraper imageDownload(grabImageLink(s, x));
+          //std::cout << grabImageLink(s, x) << std::endl;
+          //std::cin >> y;
+        }
+      }
+
+
+
+
+        //if (temp[temp.size()-4] == '.' && temp[temp.size()-3] == 'j' && temp[temp.size()-2] == 'p' && temp[temp.size()-1] == 'g')
+         // imageScraper imageDownload(temp);
+        //if (temp[temp.size()-4] == '.' && temp[temp.size()-3] == 'p' && temp[temp.size()-2] == 'n' && temp[temp.size()-1] == 'g')
+         // imageScraper imageDownload(temp);
+        //if (temp[temp.size()-5] == '.' && temp[temp.size()-4] == 'j' && temp[temp.size()-3] == 'p' && temp[temp.size()-2] == 'e' && temp[temp.size()-1] == 'g')
+         /// imageScraper imageDownload(temp);
+    }
     //cout << x << "/" << size <<  endl;
     if (!refFound)
     {
@@ -135,12 +173,6 @@ std::vector<std::string> WebScraper::scrape(std::string s)
         refFound = false;
         if (temp[0] == 'h' && temp[3] == 'p' && temp[temp.size()-1] == '/')
           ret.push_back(temp);
-        if (temp[temp.size()-4] == '.' && temp[temp.size()-3] == 'j' && temp[temp.size()-2] == 'p' && temp[temp.size()-1] == 'g')
-          imageScraper imageDownload(temp);
-        if (temp[temp.size()-4] == '.' && temp[temp.size()-3] == 'p' && temp[temp.size()-2] == 'n' && temp[temp.size()-1] == 'g')
-          imageScraper imageDownload(temp);
-        if (temp[temp.size()-5] == '.' && temp[temp.size()-4] == 'j' && temp[temp.size()-3] == 'p' && temp[temp.size()-2] == 'e' && temp[temp.size()-1] == 'g')
-          imageScraper imageDownload(temp);
       }
     }
     x++;
