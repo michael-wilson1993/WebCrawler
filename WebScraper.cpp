@@ -133,7 +133,7 @@ std::vector<std::string> WebScraper::scrape(std::string s)
       {
         if(s[x] == '"' || s[x] == '/')
         {
-          //imageScraper imageDownload(grabImageLink(s, x));
+          imageScraper imageDownload(grabImageLink(s, x));
           //std::cout << grabImageLink(s, x) << std::endl;
           //std::cin >> y;
         }
