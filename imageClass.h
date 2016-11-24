@@ -10,13 +10,17 @@
 #include <cstring>
 #include <unordered_map>
 
-typedef std::unordered_map<std::string,std::string> map;
+#include <opencv2/opencv.hpp>
 
 class imageClass
 {
 public:
    imageClass();
-   void addHashElement(long value);
+   cv::Mat loadImage(std::string imageloc);
+   void addHashElement(size_t value, cv::Mat image);
+   size_t hashImage(cv::Mat image);
+   std::unordered_map<size_t,cv::Mat> key, image;
    
-private:
+  private:
+   
 };
