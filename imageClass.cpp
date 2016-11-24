@@ -1,17 +1,33 @@
-Welcome to GNU Emacs, one component of the GNU/Linux operating system.
+#include "imageClass.h"
 
-Emacs Tutorial	Learn basic keystroke commands
-Emacs Guided Tour	Overview of Emacs features at gnu.org
-View Emacs Manual	View the Emacs manual using Info
-Absence of Warranty	GNU Emacs comes with ABSOLUTELY NO WARRANTY
-Copying Conditions	Conditions for redistributing and changing Emacs
-Ordering Manuals	Purchasing printed copies of manuals
-To quit a partially entered command, type Control-g.
+imageClass::imageClass()
+{
+   std::unordered_map<long,cv::Mat> key, image;
+}
 
-This is GNU Emacs 23.1.1 (x86_64-redhat-linux-gnu, GTK+ Version 2.24.23)
- of 2015-02-19 on c6b8.bsys.dev.centos.org
-Copyright (C) 2009 Free Software Foundation, Inc.
+void imageClass::addHashElement(size_t value, cv::Mat image)
+{
+   std::pair<size_t, cv::Mat> newElement (value, image);
+   key.insert(newElement);
+}
 
-If an Emacs session crashed recently, type Meta-x recover-session RET
-to recover the files you were editing.
-Dismiss this startup screen    Never show it again.
+cv::Mat imageClass::loadImage(std::string imageloc)
+{
+   cv::Mat image;
+   image = cv::imread(imageloc, CV_LOAD_IMAGE_COLOR);
+   if(! image.data)
+   {
+      std::cout << "Image Load Failed!" << std::endl;
+   }
+   return image;
+}
+
+size_t imageClass::hashImage(cv::Mat image)
+{
+   size_t thehash = 0; //image.cv::SparseMat::hash(1);
+   return thehash;
+}
+
+
+
+ 
