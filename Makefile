@@ -12,7 +12,7 @@ CLINKER = -L/home/cheng/opencv-64/lib -lopencv_core -lopencv_imgproc -lopencv_co
 webCrawl: $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(CINCLUDE) $(CLINKER) -o $@
 
-%.o: %.cc
+%.o: %.cpp
 	$(CC) $(CFLAGS) $(CINCLUDE) $(CLINKER) -c $<
 
 clean:
