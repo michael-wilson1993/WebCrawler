@@ -1,4 +1,6 @@
-OBJS = main.o WebScraper.o imageScraper.o
+
+
+OBJS = main.o WebScraper.o 
 
 SRCS = main.cpp
 

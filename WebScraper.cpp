@@ -1,27 +1,62 @@
 #include "WebScraper.h"
 #include <iostream>
 #include <string>
-#include "imageScraper.h"
-/*
-WebScraper::WebScraper(std::string link, int level, std::vector<std::string> &links)
-{
-   if(level != 0)
-   {
-      std::cout << "\n\n\n\n" << "level: " << level << "\n";
-      std::cout << "connecting to: " << link << '\n\n\n';
-      WebScraper *tempCrawler;
-      init(link, level);
-      linkOfLists = scrape(s);
-     for (int x = 0; x < linkOfLists.size(); x++)
-     {
-	tempCrawler = new WebScraper(linkOfLists[x], level-1, links);
-       delete tempCrawler;
-     }
-      //if(linkOfLists.size() > 0)
-	     links.insert( links.end(), linkOfLists.begin(), linkOfLists.end() );
-   }
+
+
+
+
+
+// write function for libcurl
+size_t write_data(void *ptr, size_t size, size_t nmemb, FILE *stream) {
+    size_t written = fwrite(ptr, size, nmemb, stream);
+    return written;
 }
-*/
+
+
+bool WebScraper::imageScraper(std::string link)
+{
+   //const int FILENAME_MAX = 250;
+   std::string forbidChar = "/";
+    CURL* curl;
+    FILE* fp;
+    CURLcode res;
+    bool flag = false;
+    char outfilename[FILENAME_MAX];
+
+
+    int xx;
+    for(int x = 0; x < link.size(); x++)
+    {
+        if(link[x] != '/')
+            outfilename[x] = link[x];
+        else
+            outfilename[x] = '_';
+        flag = false;
+       xx = x;
+    }
+
+    outfilename[0]='i';
+    outfilename[1]='m';
+    outfilename[2]='g';
+    outfilename[3]='/';
+
+       curl = curl_easy_init();
+    if (curl)
+    {
+       fp = fopen(outfilename, "wb");
+        curl_easy_setopt(curl, CURLOPT_URL, link.c_str());
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
+        curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
+        res = curl_easy_perform(curl);
+        /* always cleanup */
+        curl_easy_cleanup(curl);
+        fclose(fp);
+    }
+    return true;
+}
+
+
 WebScraper::WebScraper(std::string link, int level, std::set<std::string> &links)
 {
   if(links.find(link) == links.end())
@@ -133,9 +168,7 @@ std::vector<std::string> WebScraper::scrape(std::string s)
       {
         if(s[x] == '"' || s[x] == '/')
         {
-          imageScraper imageDownload(grabImageLink(s, x));
-          //std::cout << grabImageLink(s, x) << std::endl;
-          //std::cin >> y;
+          imageScraper(grabImageLink(s, x));
         }
       }
 
