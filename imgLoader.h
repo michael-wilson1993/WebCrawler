@@ -14,9 +14,20 @@
 
 class imgLoader
 {
-public:
+  public:
+   //constructor
    imgLoader();
+   
+   // loading image
    cv::Mat loadImage(std::string imageloc);
+
+   // displaying image
+   void displayImage(std::string imageloc);
+   
+   // finding pixel values
+   cv::Vec3b pixelVal(std::string filename);
+   // hashing function
+   std::string hashImage(std::string filename, cv::Vec3b RGBval);
 
    
   private:
