@@ -127,7 +127,7 @@ void imgLoader::displayImage(std::string imageloc)
    cv::namedWindow(imageloc, cv::WINDOW_AUTOSIZE);
    cv::imshow(imageloc, image);
    cv::waitKey(0);
-   cv::destroyWindow(imageloc);
+   // cv::destroyWindow(imageloc);
 }
 
 
