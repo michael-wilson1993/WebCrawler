@@ -1,11 +1,7 @@
 #include "imgLoader.h"
 
 imgLoader::imgLoader()
-{
-
-}
-
-
+{}
 
 cv::Mat imgLoader::loadImage(std::string imageloc)
 {
@@ -26,47 +22,94 @@ cv::Vec3b imgLoader::pixelVal(std::string filename)
    {
       for (int j = 0; j < img.cols; j++)
       {
-	 RGBpix = (int)img.at<cv::Vec3b>(i,j);
+	 RGBpix = img.at<cv::Vec3b>(i,j);
       }
    }  
    return RGBpix;
 }
 
 std::string imgLoader::hashImage(std::string filename, cv::Vec3b RGBval)
-{
-   /*
+{ 
    // string storing hash
    std::string hashed;
-   
-   // split factor
-   int split = 3;
+   int totalRed;
+   int totalGreen;
+   int totalBlue;
 
    cv::Mat img = cv::imread(filename);
    // For section 1 to 2
    for(int i = 0; i < img.rows / 3; i++)
    {
-      for (int j = 0; j < img.columns / 3; j++)
+      for (int j = 0; j < img.cols / 3; j++)
       {
-	 hashed.append(
+	 totalRed = totalRed + (int)img.at<cv::Vec3b>(i, j)[0];
+	 totalGreen = totalGreen + (int)img.at<cv::Vec3b>(i, j)[1];
+	 totalBlue = totalBlue + (int)img.at<cv::Vec3b>(i, j)[2];
       }
    }
+
+ // push averages to string
+   hashed += totalRed/(img.rows / 3) + 48;
+   hashed += '-';
+   hashed += totalGreen/(img.rows / 3) + 48;
+   hashed += '-';
+   hashed += totalBlue/(img.rows / 3) + 48;
+   hashed += '-';
+
+   // reset values
+   totalRed = 0;
+   totalGreen = 0;
+   totalBlue = 0;
 
    for(int i = (img.rows / 3); i > (img.rows / 3) && i < ((img.rows / 3) * 2); i++)
    {
-      for (int j = 0; img.columns / 3; j++)
+      for (int j = (img.cols / 3); j > (img.cols / 3) && j < ((img.cols / 3) * 2); i++)
       {
-	 
+	 totalRed = totalRed + (int)img.at<cv::Vec3b>(i, j)[0];
+	 totalGreen = totalGreen + (int)img.at<cv::Vec3b>(i, j)[1];
+	 totalBlue = totalBlue + (int)img.at<cv::Vec3b>(i, j)[2];
       }
    }
 
-   for(int i = ((img.rows / 3) * 2); i >  ((img.rows / 3) * 2) && i < img.rows; i++)
+   // push averages to string
+   hashed += totalRed/(img.rows / 3) + 48;
+   hashed += '-';
+   hashed += totalGreen/(img.rows / 3) + 48;
+   hashed += '-';
+   hashed += totalBlue/(img.rows / 3) + 48;
+   hashed += '-';
+
+   // reset values
+   totalRed = 0;
+   totalGreen = 0;
+   totalBlue = 0;
+
+   for(int i = ((img.rows / 3) * 2); i > ((img.rows / 3) * 2) && i < img.rows; i++)
    {
-      for (int j = 0; img.columns / 3; j++)
+      for (int j = ((img.cols / 3) * 2); j >  ((img.cols / 3) * 2) && j < img.cols; j++)
       {
-	 
+	 totalRed = totalRed + (int)img.at<cv::Vec3b>(i, j)[0];
+	 totalGreen = totalGreen + (int)img.at<cv::Vec3b>(i, j)[1];
+	 totalBlue = totalBlue + (int)img.at<cv::Vec3b>(i, j)[2];
       }
-      }
-   */
+   }
+
+ // push averages to string
+   hashed += totalRed/(img.rows / 3) + 48;
+   hashed += '-';
+   hashed += totalGreen/(img.rows / 3) + 48;
+   hashed += '-';
+   hashed += totalBlue/(img.rows / 3) + 48;
+   hashed += '-';
+
+   // reset values
+   totalRed = 0;
+   totalGreen = 0;
+   totalBlue = 0;
+
+   std::cout << hashed;
+   return hashed;
+   
 }
 
 
