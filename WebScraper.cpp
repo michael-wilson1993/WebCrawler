@@ -72,12 +72,12 @@ bool WebScraper::imageScraper(std::string link)
 
     fclose(fp);
 
-    imgLoader img;
-    cv::Mat im;
-    im = img.loadImage(str);
-    cv::namedWindow("w", cv::WINDOW_AUTOSIZE);
-    cv::imshow("w", im);
-    cv::waitKey(0);  
+    // imgLoader img;
+    // cv::Mat im;
+    // im = img.loadImage(str);
+    // cv::namedWindow("w", cv::WINDOW_AUTOSIZE);
+    // cv::imshow("w", im);
+    // cv::waitKey(0);  
 
     return true;
 
