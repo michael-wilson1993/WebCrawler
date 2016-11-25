@@ -17,13 +17,13 @@ int main()
 
     string url = "http://disney.wikia.com/wiki/The_Disney_Wiki";
     //cout << "please enter Website url\n";
-    int depth = 3;
+    int depth =9;
     //cin >> url;
     //cout << "\nPlease enter depth:\n";
    // cin >> depth;
     std::set<std::string> v;
     WebScraper Crawler(url, depth, v);
-
+    //Crawler.imageScraper("http://vignette1.wikia.nocookie.net/disney/images/b/bc/Wiki.png/revision/latest?cb=20150817203131");
     cout << "\n\n Disp \n\n";
     for (std::set<std::string>::iterator i = v.begin(); i != v.end(); i++) 
     	std::cout << *i << "\n";
