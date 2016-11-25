@@ -23,8 +23,10 @@ cv::Vec3b imgLoader::pixelVal(std::string filename)
       for (int j = 0; j < img.cols; j++)
       {
 	 RGBpix = img.at<cv::Vec3b>(i,j);
+	 // TEST
+	 // std::cout << img.at<cv::Vec3b>(i,0)[0] << "-" << img.at<cv::Vec3b>(i,0)[1] << "-" << img.at<cv::Vec3b>(i,0)[2] << std::endl;
       }
-   }  
+   }
    return RGBpix;
 }
 
@@ -42,9 +44,13 @@ std::string imgLoader::hashImage(std::string filename, cv::Vec3b RGBval)
    {
       for (int j = 0; j < img.cols / 3; j++)
       {
+	 
 	 totalRed = totalRed + (int)img.at<cv::Vec3b>(i, j)[0];
+	 std::cout << totalRed;
 	 totalGreen = totalGreen + (int)img.at<cv::Vec3b>(i, j)[1];
+	 std::cout << totalGreen;
 	 totalBlue = totalBlue + (int)img.at<cv::Vec3b>(i, j)[2];
+	  std::cout << totalBlue;
       }
    }
 
