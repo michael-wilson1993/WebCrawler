@@ -3,13 +3,13 @@
 #include "MainMenu.h"
 
 
-bool MainMenu::menufunc(string &opt)
+std::string MainMenu::menufunc(string &opt)
 {
 	Cprint("green", "bold");
 	unsigned int curs=0, Ssize =0;
 	char choice;
-	const unsigned int OPT = 4;
-	string option[OPT]= {"list Images", "display Image", "crawl link", "check Image"};
+	const unsigned int OPT = 5;
+	string option[OPT]= {"list Images", "display Image", "crawl link", "check Image", "exit"};
 
 //save exit resume
 	while(true)
@@ -84,7 +84,15 @@ bool MainMenu::menufunc(string &opt)
 			{
 				switch(curs)
 				{
-
+					case 0:
+						return "listImages";
+					break;
+					case 2:
+						return EnterName();
+						break;
+					case 4:
+						return "exit";
+						break;
 	   			}
 			}
 		}
@@ -124,85 +132,43 @@ void MainMenu::Cprint(string color, string type)
 
 string MainMenu::EnterName()
 {
-	Cprint("green");
-	
-	vector<string> names;
-	
-	if(names.size() == 0)
-		return "";
+	string name;
+	while(true)
+	{
 
-
-	unsigned int curs = 0, loopProtect = 0;
-	unsigned int SIZE_LEADER = names.size();
-
-	char choice;	
-	if (names.size() > 9)
-		SIZE_LEADER = 9;
-
-	while (true)
-	{ 	// title
 		system("clear");
-		printf("\033[09;32m");
-		cout << "|    |                                             |" << endl;
-		Cprint("green");
-		cout << "| #  |          LoadFile Name                      |" << endl;
-		Cprint("green", "slash");
-		cout << "|    |                                             |" << endl;
-		printf("\033[00;32m");
-
-			if (curs > 3 && curs < names.size() -4)
-			{
-				loopProtect = curs - 4;
-				SIZE_LEADER = curs + 5;
-			}
-
-		for (unsigned int x = loopProtect; x < SIZE_LEADER;x++)
-		{
-
-				cout << "|" << std::setw(4) << left << x << "|"; 
-
-
-
-		if (curs == x)
-		{
-			printf("\033[01;33m");
-			cout << " " << std::setw(44) << left  << names[x];
-			printf("\033[00;32m");
 	
+
+	    char choice;
+		cout << "|------------------------------------------------------------------------------------------------------------------------------------------|" << endl;
+		cout << "|                                                                  Enter URL here                                                          |" << endl;
+		cout << "|---------|--------------------------------------------------------------------------------------------------------------------------------|" << endl;
+		cout << "|  URL  " ": |";
+		Cprint("red", "bold");
+		cout << setw(128) << left << name;
+		Cprint("green", "bold");
+		cout << '|' << endl;
+		cout << "|---------|--------------------------------------------------------------------------------------------------------------------------------|" << endl;
+
+		cin >> noskipws >> choice;
+
+
+		if ((choice > 32 && choice < 126))
+		{	
+		      name += choice;
 		}
-		else
+	
+		else if (choice == '' && name.size() != 0)
+		{	   
+		   name.erase(name.end() -1);
+		}
+	
+		if(choice == '\n')//check if players presses enter
 		{
 
-			printf("\033[01;31m");
-			cout << " " << std::setw(44) << left  << names[x];
-			printf("\033[00;32m");
-			
-		}
+		  return name;
 
-			cout << '|' << endl;
-			printf("\033[09;32m");
-			cout << "|                                                 |" << endl;
-			printf("\033[00;32m");
 		}
-				cout << "press esc to go back!" << endl;
-		
-		cin >> choice;
-		if (choice == 27)
-			return "";
-		if(choice == 'm')
-		{
-			return names[curs];
-		}
-
-		else if(choice == 's' && curs != names.size() - 1)
-		{
-			curs++;
-		}
-		else if(choice == 'w' && curs != 0 )
-		{
-			curs--;
-		}
-
 	}
 
 }

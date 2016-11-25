@@ -18,6 +18,7 @@ public:
 	std::vector<std::string> scrape(std::string s, std::vector<std::string> &picName);
 	std::vector<std::string> getUrls() {return linkOfLists;};
 	void updateLinkFile(std::string link);
+	void updateImageFile(std::string link);
 
 
 

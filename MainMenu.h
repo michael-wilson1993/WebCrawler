@@ -24,7 +24,7 @@ class MainMenu
 /// param[in] status is a class to enable manipulation of the current game
 /// and players between classes
 //***************************************************************************
-   bool menufunc(string &opt);
+   std::string menufunc(string &opt);
         
 
   private:

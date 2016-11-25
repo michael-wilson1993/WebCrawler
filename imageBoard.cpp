@@ -5,7 +5,7 @@
 
 
 
-  bool imageBoard::menufunc(string &opt, std::vector<std::string> names)
+  std::string imageBoard::menufunc(string &opt, std::vector<std::string> names)
 {
 	
 	
@@ -88,7 +88,7 @@
 		cin >> choice;
 		if(choice == 27)
 		{
-			return true;
+			return "";
 		}
 		if (choice == 'm')
 		{

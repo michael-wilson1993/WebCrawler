@@ -53,6 +53,8 @@ bool WebScraper::imageScraper(std::string link, std::vector<std::string> &picNam
     curl_easy_setopt(curlCtx, CURLOPT_WRITEFUNCTION, callbackfunction);
     curl_easy_setopt(curlCtx, CURLOPT_FOLLOWLOCATION, 1);
 
+
+
     CURLcode rc = curl_easy_perform(curlCtx);
     if (rc)
     {
@@ -69,16 +71,17 @@ bool WebScraper::imageScraper(std::string link, std::vector<std::string> &picNam
     }
 
 // TESTS HERE
-    imgLoader img;
-    cv::Vec3b image;
-    image = img.pixelVal(str);
-    std::cin.get();
+    // imgLoader img;
+    // cv::Vec3b image;
+    // image = img.pixelVal(str);
+    // std::cin.get();
 //
     curl_easy_cleanup(curlCtx);
 
     fclose(fp);
 
     picName.push_back(str);
+    updateImageFile(str);
 
     return true;
 
@@ -262,6 +265,14 @@ void WebScraper::updateLinkFile(std::string link)
 {
   std::ofstream fout;
   fout.open("VisitedLinks", std::ofstream::out | std::ofstream::app);
+  fout << link << std::endl;
+  fout.close();
+}
+
+void WebScraper::updateImageFile(std::string link)
+{
+  std::ofstream fout;
+  fout.open("savedImages", std::ofstream::out | std::ofstream::app);
   fout << link << std::endl;
   fout.close();
 }

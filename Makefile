@@ -17,6 +17,8 @@ webCrawl: $(OBJS)
 
 clean:
 	rm -f *.o *~ *% *# .#*
+	rm VisitedLinks
+	rm savedImages
 
 clean-all:
 	rm -f *.o *~ *% *# .#*

@@ -28,7 +28,7 @@ class imageBoard
    /// param[in] status is a class to enable manipulation of the current game
    /// and players between classes
    //***************************************************************************
-  bool menufunc(string &opt, std::vector<std::string> names);
+  std::string menufunc(string &opt, std::vector<std::string> names);
    
   private:
 
