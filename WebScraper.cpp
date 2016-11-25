@@ -7,6 +7,8 @@
 #include <stdlib.h>
 #include <fstream>
 #include <stdio.h>
+#include "imgLoader.h"
+#include <opencv2/opencv.hpp>
 
 
 
@@ -69,6 +71,13 @@ bool WebScraper::imageScraper(std::string link)
     curl_easy_cleanup(curlCtx);
 
     fclose(fp);
+
+    imgLoader img;
+    cv::Mat im;
+    im = img.loadImage(str);
+    cv::namedWindow("w", cv::WINDOW_AUTOSIZE);
+    cv::imshow("w", im);
+    cv::waitKey(0);  
 
     return true;
 

@@ -1,6 +1,6 @@
 
 
-OBJS = main.o WebScraper.o imageClass.o
+OBJS = main.o WebScraper.o imgLoader.o
 
 SRCS = main.cpp
 
@@ -17,7 +17,7 @@ webCrawl: $(OBJS)
 
 clean:
 	rm -f *.o *~ *% *# .#*
-	rm img/*
+
 clean-all:
 	rm -f *.o *~ *% *# .#*
 	rm ./webCrawl
