@@ -28,7 +28,7 @@ size_t callbackfunction(void *ptr, size_t size, size_t nmemb, void* userdata)
 }
 
 
-bool WebScraper::imageScraper(std::string link)
+bool WebScraper::imageScraper(std::string link, std::vector<std::string> &picName)
 {
     std::string strng =  link;
 
@@ -72,16 +72,14 @@ bool WebScraper::imageScraper(std::string link)
 
     fclose(fp);
 
-    imgLoader img;
-    img.displayImage(str);
-    img.pixelVal(str);
+    picName.push_back(str);
 
     return true;
 
 }
 
 
-WebScraper::WebScraper(std::string link, int level, std::set<std::string> &links)
+WebScraper::WebScraper(std::string link, int level, std::set<std::string> &links, std::vector<std::string> &imageNames)
 {
   system("clear");
   if(links.find(link) == links.end())
@@ -94,10 +92,10 @@ WebScraper::WebScraper(std::string link, int level, std::set<std::string> &links
     std::cout << "connecting to: " << link << '\n\n\n';
     WebScraper *tempCrawler;
     init(link, level);
-    linkOfLists = scrape(s);
+    linkOfLists = scrape(s, imageNames);
     for (int x = 0; x < linkOfLists.size(); x++)
     {
-      tempCrawler = new WebScraper(linkOfLists[x], level-1, links);
+      tempCrawler = new WebScraper(linkOfLists[x], level-1, links, imageNames);
       delete tempCrawler;
     }
   }
@@ -196,7 +194,7 @@ bool checkHREF(std::string file, int index)
   return false;
 }
 
-std::vector<std::string> WebScraper::scrape(std::string s)
+std::vector<std::string> WebScraper::scrape(std::string s, std::vector<std::string> &picName)
 {
   std::vector<std::string> ret;
   int x = 0 ,y;
@@ -213,14 +211,14 @@ std::vector<std::string> WebScraper::scrape(std::string s)
       if(s[x-1] == 'g' && s[x-2] == 'n' && s[x-3] == 'p' && s[x-4] == '.')
       {
         if(checkHREF(s, x-2))
-          imageScraper(grabImageLink(s, x-2));
+          imageScraper(grabImageLink(s, x-2), picName);
       }
 
 
       if(s[x-1] == 'g' && s[x-2] == 'p' && s[x-3] == 'j' && s[x-4] == '.')
       {
         if(checkHREF(s, x-2))
-          imageScraper(grabImageLink(s, x-2));
+          imageScraper(grabImageLink(s, x-2), picName);
       }
     }
     
