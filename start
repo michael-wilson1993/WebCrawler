@@ -1,5 +1,8 @@
 #!/bin/bash
 
+make clean
+make
+
 if [ ! -d "$img" ]; then
   mkdir -p img;
 fi

@@ -70,15 +70,16 @@ bool WebScraper::imageScraper(std::string link, std::vector<std::string> &picNam
         printf("!!! Response code: %d\n", res_code);
         return false;
       }
-
-// TESTS HERE
-    imgLoader img;
-    cv::Scalar image;
-    image = img.pixelVal(str);
-//
       curl_easy_cleanup(curlCtx);
-
       fclose(fp);
+
+
+    // imgLoader img;
+    // cv::Scalar image;
+    // image = img.pixelVal(str);
+      
+
+      
 
       picName.push_back(str);
       updateImageFile(str);
