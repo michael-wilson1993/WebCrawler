@@ -8,7 +8,6 @@
 #include "WebScraper.h"
 #include <set>
 #include "MainMenu.h"
-using namespace std;
 #include "imageBoard.h"
 
 
@@ -29,7 +28,7 @@ int main()
 
     string url = "http://disney.wikia.com/wiki/The_Disney_Wiki";
     //cout << "please enter Website url\n";
-    int depth =9;
+    int depth =2;
     //cin >> url;
     //cout << "\nPlease enter depth:\n";
    // cin >> depth;

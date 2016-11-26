@@ -15,7 +15,8 @@ std::string MainMenu::menufunc(string &opt)
 	while(true)
 	{
 		system("clear");
-		Cprint("green", "bold"); 
+		Cprint("green", "bold");
+		cout << endl;
 		cout << "|----------------|" << endl;
 		cout << "|  Main Menu     |" << endl;
 		cout << "|----------------|" << endl;
@@ -80,7 +81,7 @@ std::string MainMenu::menufunc(string &opt)
 					break;
 				}
 			}
-			case 'm':
+			case 'd':
 			{
 				switch(curs)
 				{

@@ -25,9 +25,9 @@ class imgLoader
    void displayImage(std::string imageloc);
    
    // finding pixel values
-   cv::Vec3b pixelVal(std::string filename);
+   cv::Scalar pixelVal(std::string filename);
    // hashing function
-   std::string hashImage(std::string filename, cv::Vec3b RGBval);
+   std::string hashImage(std::string filename);
 
    
   private:

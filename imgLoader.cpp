@@ -14,23 +14,27 @@ cv::Mat imgLoader::loadImage(std::string imageloc)
    return image;
 }
 
-cv::Vec3b imgLoader::pixelVal(std::string filename)
+cv::Scalar imgLoader::pixelVal(std::string filename)
 {
    cv::Mat img = cv::imread(filename);
-   cv::Vec3b RGBpix;
+   cv::Scalar RGBpix;
+   std::cout << img.rows;
+   std::cin.get();
    for (int i = 0; i < img.rows; i++)
    {
       for (int j = 0; j < img.cols; j++)
       {
-	 RGBpix = img.at<cv::Vec3b>(i,j);
+	 RGBpix = img.at<cv::Scalar>(i,j);
 	 // TEST
-	 // std::cout << img.at<cv::Vec3b>(i,0)[0] << "-" << img.at<cv::Vec3b>(i,0)[1] << "-" << img.at<cv::Vec3b>(i,0)[2] << std::endl;
+	 std::cout << "ASSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS";
+	 std::cout << std::endl;
+	 std::cout << img.at<cv::Scalar>(i,0)[0] << "-" << img.at<cv::Scalar>(i,0)[1] << "-" << img.at<cv::Scalar>(i,0)[2] << std::endl;
       }
    }
    return RGBpix;
 }
 
-std::string imgLoader::hashImage(std::string filename, cv::Vec3b RGBval)
+std::string imgLoader::hashImage(std::string filename)
 { 
    // string storing hash
    std::string hashed;
@@ -45,12 +49,9 @@ std::string imgLoader::hashImage(std::string filename, cv::Vec3b RGBval)
       for (int j = 0; j < img.cols / 3; j++)
       {
 	 
-	 totalRed = totalRed + (int)img.at<cv::Vec3b>(i, j)[0];
-	 std::cout << totalRed;
-	 totalGreen = totalGreen + (int)img.at<cv::Vec3b>(i, j)[1];
-	 std::cout << totalGreen;
-	 totalBlue = totalBlue + (int)img.at<cv::Vec3b>(i, j)[2];
-	  std::cout << totalBlue;
+	 totalRed = totalRed + (int)img.at<cv::Scalar>(i, j)[2];
+	 totalGreen = totalGreen + (int)img.at<cv::Scalar>(i, j)[1];
+	 totalBlue = totalBlue + (int)img.at<cv::Scalar>(i, j)[0];
       }
    }
 
@@ -71,9 +72,9 @@ std::string imgLoader::hashImage(std::string filename, cv::Vec3b RGBval)
    {
       for (int j = (img.cols / 3); j > (img.cols / 3) && j < ((img.cols / 3) * 2); i++)
       {
-	 totalRed = totalRed + (int)img.at<cv::Vec3b>(i, j)[0];
-	 totalGreen = totalGreen + (int)img.at<cv::Vec3b>(i, j)[1];
-	 totalBlue = totalBlue + (int)img.at<cv::Vec3b>(i, j)[2];
+	 totalRed = totalRed + (int)img.at<cv::Scalar>(i, j)[2];
+	 totalGreen = totalGreen + (int)img.at<cv::Scalar>(i, j)[1];
+	 totalBlue = totalBlue + (int)img.at<cv::Scalar>(i, j)[0];
       }
    }
 
@@ -94,9 +95,9 @@ std::string imgLoader::hashImage(std::string filename, cv::Vec3b RGBval)
    {
       for (int j = ((img.cols / 3) * 2); j >  ((img.cols / 3) * 2) && j < img.cols; j++)
       {
-	 totalRed = totalRed + (int)img.at<cv::Vec3b>(i, j)[0];
-	 totalGreen = totalGreen + (int)img.at<cv::Vec3b>(i, j)[1];
-	 totalBlue = totalBlue + (int)img.at<cv::Vec3b>(i, j)[2];
+	 totalRed = totalRed + (int)img.at<cv::Scalar>(i, j)[2];
+	 totalGreen = totalGreen + (int)img.at<cv::Scalar>(i, j)[1];
+	 totalBlue = totalBlue + (int)img.at<cv::Scalar>(i, j)[0];
       }
    }
 
@@ -125,9 +126,13 @@ void imgLoader::displayImage(std::string imageloc)
    cv::Mat image;
    image = img.loadImage(imageloc);
    cv::namedWindow(imageloc, cv::WINDOW_AUTOSIZE);
+   cv::moveWindow(imageloc, 100, 100);
    cv::imshow(imageloc, image);
-   cv::waitKey(0);
-   // cv::destroyWindow(imageloc);
+   if (cv::waitKey(30) == -1)
+   {
+      cv::destroyWindow(imageloc);
+   }
+   
 }
 
 

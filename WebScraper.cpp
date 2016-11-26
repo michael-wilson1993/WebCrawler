@@ -72,10 +72,9 @@ bool WebScraper::imageScraper(std::string link, std::vector<std::string> &picNam
       }
 
 // TESTS HERE
-    // imgLoader img;
-    // cv::Vec3b image;
-    // image = img.pixelVal(str);
-    // std::cin.get();
+    imgLoader img;
+    cv::Scalar image;
+    image = img.pixelVal(str);
 //
       curl_easy_cleanup(curlCtx);
 
