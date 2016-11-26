@@ -16,15 +16,14 @@
 // write function for libcurl
 size_t callbackfunction(void *ptr, size_t size, size_t nmemb, void* userdata)
 {
-    FILE* stream = (FILE*)userdata;
-    if (!stream)
-    {
-        printf("!!! No stream\n");
-        return 0;
-    }
-
-    size_t written = fwrite((FILE*)ptr, size, nmemb, stream);
-    return written;
+  FILE* stream = (FILE*)userdata;
+  if (!stream)
+  {
+    printf("!!! No stream\n");
+    return 0;
+  }
+  size_t written = fwrite((FILE*)ptr, size, nmemb, stream);
+  return written;
 }
 
 
@@ -86,38 +85,33 @@ bool WebScraper::imageScraper(std::string link, std::vector<std::string> &picNam
       updateImageFile(str);
 
       return true;
-    
-
-  }
 
 
-WebScraper::WebScraper(std::string link, int level, std::set<std::string> &links, std::vector<std::string> &imageNames)
-{
-  system("clear");
-  if(links.find(link) == links.end())
-   if(level != 0)
-   {
-    updateLinkFile(link);
-
-    links.insert(link);
-    std::cout << "\n\n\n\n" << "level: " << level << "\n";
-    std::cout << "connecting to: " << link << '\n\n\n';
-    WebScraper *tempCrawler;
-    init(link, level);
-    linkOfLists = scrape(s, imageNames);
-    for (int x = 0; x < linkOfLists.size(); x++)
-    {
-      tempCrawler = new WebScraper(linkOfLists[x], level-1, links, imageNames);
-      delete tempCrawler;
     }
-  }
-}
-/*
-    std::cout << "\n\n ---- current list of visited links ---- \n\n";
-    for (std::set<std::string>::iterator i = links.begin(); i != links.end(); i++) 
-      std::cout << *i << "\n";
-    std::cout << "\n\n ---- end ---- \n\n";
-    */
+
+
+    WebScraper::WebScraper(std::string link, int level, std::set<std::string> &links, std::vector<std::string> &imageNames)
+    {
+      system("clear");
+      if(links.find(link) == links.end())
+       if(level != 0)
+       {
+        updateLinkFile(link);
+
+        links.insert(link);
+        std::cout << "\n\n\n\n" << "level: " << level << "\n";
+        std::cout << "connecting to: " << link << '\n\n\n';
+        WebScraper *tempCrawler;
+        init(link, level);
+        linkOfLists = scrape(s, imageNames);
+        for (int x = 0; x < linkOfLists.size(); x++)
+        {
+          tempCrawler = new WebScraper(linkOfLists[x], level-1, links, imageNames);
+          delete tempCrawler;
+        }
+      }
+    }
+
     size_t CurlWrite_CallbackFunc_StdString(void *contents, size_t size, size_t nmemb, std::string *s)
     {
      size_t newLength = size*nmemb;
@@ -128,7 +122,6 @@ WebScraper::WebScraper(std::string link, int level, std::set<std::string> &links
     }
     catch(std::bad_alloc &e)
     {
-        //handle memory problem
       return 0;
     }
 
@@ -142,30 +135,22 @@ WebScraper::WebScraper(std::string link, int level, std::set<std::string> &links
    curl = curl_easy_init();
    if(curl)
    {
-
      curl_easy_setopt(curl, CURLOPT_URL, link.c_str());
      curl_easy_setopt(curl, CURLOPT_TIMEOUT, 10);
      curl_easy_setopt(curl, CURLOPT_VERBOSE, 1);
-
-       //curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L); //only for https
      curl_easy_setopt (curl, CURLOPT_PORT , 80);
-	     //curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0L); //only for https
      curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, CurlWrite_CallbackFunc_StdString);
      curl_easy_setopt(curl, CURLOPT_WRITEDATA, &s);
-//	curl_easy_setopt(curl, CURLOPT_NOBODY, 1);
-	//curl_easy_setopt (curl, CURLOPT_VERBOSE, 1L); //remove this to disable verbose output
-
-
-        /* Perform the request, res will get the return code */
      res = curl_easy_perform(curl);
-        /* Check for errors */
+
+
      if(res != CURLE_OK)
      {
       fprintf(stderr, "curl_easy_perform() failed: %s\n",
         curl_easy_strerror(res));
     }
 
-        /* always cleanup */
+
     curl_easy_cleanup(curl);
   }
 }
@@ -191,19 +176,12 @@ bool checkHREF(std::string file, int index)
   while(file[x] != '"')
     x--;
 
-  std::ofstream outf("outputs.txt", std::ofstream::out | std::ofstream::app);
-
-  for(int y = 0; y < 9; y ++)
-     outf << file[x-y];
-   outf << std::endl;
-   outf.close();
-
-  if(file[x-1] == '='
-    && file[x-2] == 'c' 
-    && file[x+1] == 'h'
+ if(file[x-1] == '='
+  && file[x-2] == 'c' 
+  && file[x+1] == 'h'
     && file[x+4] == 'p') // c
-    return true;
-  return false;
+  return true;
+return false;
 }
 
 std::vector<std::string> WebScraper::scrape(std::string s, std::vector<std::string> &picName)

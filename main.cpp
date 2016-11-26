@@ -29,7 +29,7 @@ int main()
 
     string url = "http://disney.wikia.com/wiki/The_Disney_Wiki";
     //cout << "please enter Website url\n";
-    int depth =1;
+    int depth =9;
     //cin >> url;
     //cout << "\nPlease enter depth:\n";
    // cin >> depth;
@@ -55,7 +55,14 @@ int main()
         if(opt == "exit" || opt == "")
             return 0;
         else if(opt == "listImages")
+        {
             board.menufunc(opt, picNames);
+        }
+        else if(opt[opt.size()-1] == '=')
+        {
+            opt.pop_back();
+            WebScraper Crawler(opt, 1, v, picNames);
+        }
         else
         {
             WebScraper Crawler(opt, depth, v, picNames);

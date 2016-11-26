@@ -11,13 +11,13 @@
 	
 
 	unsigned int curs = 0, loopProtect = 0;
-	unsigned int SIZE_LEADER = names.size();
+	unsigned int size = names.size();
 
 
 
 		char choice;	
 	if (names.size() > 9)
-		SIZE_LEADER = 9;
+		size = 9;
 
 	while (true)
 	{
@@ -51,10 +51,10 @@
 		if (curs > 3 && curs < names.size() -4)
 		{
 			loopProtect = curs - 4;
-			SIZE_LEADER = curs + 5;
+			size = curs + 5;
 		}
 
-		for (unsigned int x = loopProtect; x < SIZE_LEADER;x++)
+		for (unsigned int x = loopProtect; x < size;x++)
 		{
 
 			cout << "|" << std::setw(4) << left <<  x  << "|"; 
@@ -92,8 +92,11 @@
 		}
 		if (choice == 'm')
 		{
-			imgLoader img;
-			img.displayImage(names[curs]);
+			if(size > 0)
+			{
+				imgLoader img;
+				img.displayImage(names[curs]);
+			}
 		}
 
 		else if(choice == 's' && curs != names.size() - 1)
