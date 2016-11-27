@@ -43,6 +43,12 @@ cv::Scalar imgLoader::pixelVal(std::string filename)
 
 std::string getMeanValue(Mat img, int si, int sj, int i, int j, int RGB)
 {
+   if (img.rows <= i)
+      i--;
+   if (img.cols <= j)
+      j--;
+
+
    int size = (i - si)*(j - sj); // gets the amount of pixels we are getting the mean for.
    long int totalPixelValue = 0;
    for (int x = si; x < i; x++ )
@@ -58,15 +64,17 @@ std::string imgLoader::hashImage(std::string filename, int hashingSize)
 
    cv::Mat img = cv::imread(filename);
    std::string retVal = "";
+   if(img.rows <= hashingSize || img.cols <= hashingSize)
+      return "img/error-Image.png";
 
-   int divx = img.rows/hashingSize;
-   int divy = img.cols/hashingSize;
+   int divx = (img.rows/hashingSize);
+   int divy = (img.cols/hashingSize);
 
    for(int x = 0; x < hashingSize; x++)
       for(int y = 0; y < hashingSize; y++)
       {
-         std::cout << "( " << x*divx << " , " << (x*divx)+divx << " )" << std::endl;
-         std::cout << "( " << y*divy << " , " << (y*divy)+divy << " )" << std::endl;
+         //std::cout << "( " << x*divx << " , " << (x*divx)+divx << " ) - ";
+         //std::cout << "( " << y*divy << " , " << (y*divy)+divy << " )" << std::endl;
          if (retVal == "")
          {
             for(int RGB = 0; RGB < 3; RGB++)

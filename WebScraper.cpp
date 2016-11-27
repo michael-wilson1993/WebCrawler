@@ -26,7 +26,16 @@ size_t callbackfunction(void *ptr, size_t size, size_t nmemb, void* userdata)
   return written;
 }
 
-
+std::string getExtension(std::string link)
+{
+  for(int x = 3; x < link.size(); x++)
+  {
+    if (link[x- 3] == '.' && link[x- 2] == 'j' && link[x-1] == 'p' && link[x] == 'g')
+      return ".jpg";
+    if (link[x- 3] == '.' && link[x- 2] == 'p' && link[x-1] == 'n' && link[x] == 'g')
+      return ".png";
+  }
+}
 bool WebScraper::imageScraper(std::string link, std::vector<std::string> &picName)
 {
   std::string strng =  link;
@@ -77,7 +86,7 @@ bool WebScraper::imageScraper(std::string link, std::vector<std::string> &picNam
       imgLoader img;
       std::string newName = img.hashImage(str, 3), startNewName = "img/";
 
-      startNewName += newName + ".png";
+      startNewName += newName + getExtension(str);
 
       if (rename(str.c_str(), startNewName.c_str()) == 0)
         std::cout << "\n\nfile successfully renamed\n\n";
@@ -208,11 +217,11 @@ std::vector<std::string> WebScraper::scrape(std::string s, std::vector<std::stri
       }
 
 
-      // if(s[x-1] == 'g' && s[x-2] == 'p' && s[x-3] == 'j' && s[x-4] == '.')
-      // {
-      //   if(checkHREF(s, x-2))
-      //     imageScraper(grabImageLink(s, x-2), picName);
-      // }
+      if(s[x-1] == 'g' && s[x-2] == 'p' && s[x-3] == 'j' && s[x-4] == '.')
+      {
+        if(checkHREF(s, x-2))
+          imageScraper(grabImageLink(s, x-2), picName);
+      }
     }
     
     if (!refFound)
