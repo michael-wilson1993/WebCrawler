@@ -23,6 +23,7 @@ class imgLoader
 
    // displaying image
    void displayImage(std::string imageloc);
+   void displayImage(std::string imageloc, std::string imageloc2);
    
    // finding pixel values
    cv::Scalar pixelVal(std::string filename);

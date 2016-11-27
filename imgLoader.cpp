@@ -99,15 +99,45 @@ std::string imgLoader::hashImage(std::string filename, int hashingSize)
 }
 
 
+void imgLoader::displayImage(std::string imageloc, std::string imageloc2)
+{
+   imgLoader img;
+   imgLoader img2;
+   
+   cv::Mat image;
+   cv::Mat image2;
+   
+   std::string windowName = "image viewer alpha";
+   std::string windowName2 = "image viewer beta";
+   
+   image = img.loadImage(imageloc);
+   image2 = img2.loadImage(imageloc2);
+   
+   cv::namedWindow(windowName, cv::WINDOW_AUTOSIZE);
+   cv::namedWindow(windowName2, cv::WINDOW_AUTOSIZE);
+   
+   cv::moveWindow(windowName, 100, 100);
+   cv::moveWindow(windowName, 400, 100);
+   
+   cv::imshow(windowName, image);
+   cv::imshow(windowName2, image2)
+   
+   if (cv::waitKey(30) == -1)
+   {
+      cv::destroyWindow(windowName);
+   }
+}
+   
+
 void imgLoader::displayImage(std::string imageloc)
 {
    imgLoader img;
    cv::Mat image;
-   std::string windowName = "image viewer";
+   std::string windowName = "image viewer alpha"; 
    image = img.loadImage(imageloc);
    cv::namedWindow(windowName, cv::WINDOW_AUTOSIZE);
-   cv::moveWindow(windowName, 2000, 100);
-   cv::imshow(windowName, image);
+   cv::moveWindow(windowName, 100, 100);
+   cv::imshow(windowName, image);  
    if (cv::waitKey(30) == -1)
    {
       cv::destroyWindow(windowName);
