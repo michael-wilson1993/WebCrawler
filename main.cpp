@@ -10,6 +10,7 @@
 #include "MainMenu.h"
 #include "imageBoard.h"
 #include "imgLoader.h"
+#include <exception>
 
 
 void loadImageVector(vector<string> &names);
@@ -17,10 +18,10 @@ void loadvisitedLinks(std::set<std::string> &link);
 
 int main()
 {
-    imgLoader load;
-    load.pixelVal("img/http:__vignette3.wikia.nocookie.net_disney_images_0_0f_Uncle_Scrooge_thumbnail.jpg_revision_latest_scale-to-width-down_120?cb=20161101114226");
+    // imgLoader load;
+    //  std::cout << "\n\n\n " << load.hashImage("img/http:__vignette3.wikia.nocookie.net_disney_images_0_0f_Uncle_Scrooge_thumbnail.jpg_revision_latest_scale-to-width-down_120?cb=20161101114226",4);
 
-    return 0;
+    // return 0;
 
     struct termios term;
     tcgetattr(STDIN_FILENO, &term);

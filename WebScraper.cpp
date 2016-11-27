@@ -74,15 +74,18 @@ bool WebScraper::imageScraper(std::string link, std::vector<std::string> &picNam
       fclose(fp);
 
 
-    // imgLoader img;
-    // cv::Scalar image;
-    // image = img.pixelVal(str);
-      
+      imgLoader img;
+      std::string newName = img.hashImage(str, 3), startNewName = "img/";
 
-      
+      startNewName += newName + ".png";
 
-      picName.push_back(str);
-      updateImageFile(str);
+      if (rename(str.c_str(), startNewName.c_str()) == 0)
+        std::cout << "\n\nfile successfully renamed\n\n";
+      else
+        std::cout << "\n\nError renaming file\n\n";
+
+      picName.push_back(startNewName);
+      updateImageFile(startNewName);
 
       return true;
 
@@ -205,11 +208,11 @@ std::vector<std::string> WebScraper::scrape(std::string s, std::vector<std::stri
       }
 
 
-      if(s[x-1] == 'g' && s[x-2] == 'p' && s[x-3] == 'j' && s[x-4] == '.')
-      {
-        if(checkHREF(s, x-2))
-          imageScraper(grabImageLink(s, x-2), picName);
-      }
+      // if(s[x-1] == 'g' && s[x-2] == 'p' && s[x-3] == 'j' && s[x-4] == '.')
+      // {
+      //   if(checkHREF(s, x-2))
+      //     imageScraper(grabImageLink(s, x-2), picName);
+      // }
     }
     
     if (!refFound)

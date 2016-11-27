@@ -27,7 +27,7 @@ class imgLoader
    // finding pixel values
    cv::Scalar pixelVal(std::string filename);
    // hashing function
-   std::string hashImage(std::string filename);
+   std::string hashImage(std::string filename, int hashingSize);
 
    
   private:
