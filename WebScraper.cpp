@@ -105,7 +105,7 @@ bool WebScraper::imageScraper(std::string link, std::vector<std::string> &picNam
         int x;
         std::cout << "duplicates found\n\n" << str; 
         img.displayImage(str, *it);
-        sleep(1);
+        //sleep(.5);
       }
 
       if (rename(str.c_str(), startNewName.c_str()) == 0)

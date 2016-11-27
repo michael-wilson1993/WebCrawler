@@ -139,6 +139,8 @@ IplImage* img1 = cvLoadImage( imageloc.c_str() );
 IplImage* img2 = cvLoadImage( imageloc2.c_str() );
 
 int dstWidth=img1->width+img2->width;
+if(dstWidth > 1000)
+return;
 int dstHeight=std::max(img1->height, img2->height);
 
 IplImage* dst=cvCreateImage(cvSize(dstWidth,dstHeight),IPL_DEPTH_8U,3); 
@@ -162,10 +164,14 @@ void imgLoader::displayImage(std::string imageloc)
 {
    imgLoader img;
    std::string display = "display";
+
    cv::Mat image;
+   image = img.loadImage(imageloc);
+   if(image.cols > 1000)
+      return;
    cv::startWindowThread();
    std::string windowName = "image viewer alpha"; 
-   image = img.loadImage(imageloc);
+   
    cv::namedWindow(display, cv::WINDOW_AUTOSIZE);
    cv::imshow(display, image);  
 
