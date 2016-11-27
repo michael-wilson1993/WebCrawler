@@ -54,6 +54,11 @@ std::string getMeanValue(Mat img, int si, int sj, int i, int j, int RGB)
    for (int x = si; x < i; x++ )
       for(int y = sj; y < j; y++)
          totalPixelValue += (int)img.at<Vec3b>(i,j)[RGB]; // adds to the total pixel value
+
+   if(totalPixelValue/size < 10)
+      return "00" + std::to_string(totalPixelValue/size); 
+   if(totalPixelValue/size < 100)
+      return "0" + std::to_string(totalPixelValue/size);
    return std::to_string(totalPixelValue/size); //returns the mean
          
 
@@ -91,57 +96,79 @@ std::string imgLoader::hashImage(std::string filename, int hashingSize)
              for(int RGB = 0; RGB < 3; RGB++)
              {
             retVal += "-";
-            retVal += getMeanValue(img, x*divx, y*divy, (x*divx)+divx,  (y*divy)+divy, RGB);
+            retVal += getMeanValue(img, x*divx+1, y*divy+1, (x*divx)+divx,  (y*divy)+divy, RGB);
          }
          }
       }
-      return retVal;
+      return retVal;// + std::to_string(img.rows) + "-" +std::to_string(img.cols);
 }
 
 
 void imgLoader::displayImage(std::string imageloc, std::string imageloc2)
 {
-   imgLoader img;
-   imgLoader img2;
+   // imgLoader img;
+   // imgLoader img2;
    
-   cv::Mat image;
-   cv::Mat image2;
+   // cv::Mat image;
+   // cv::Mat image2;
    
-   std::string windowName = "image viewer alpha";
-   std::string windowName2 = "image viewer beta";
+   // std::string windowName = "image viewer alpha";
+   // //std::string windowName2 = "image viewer beta";
    
-   image = img.loadImage(imageloc);
-   image2 = img2.loadImage(imageloc2);
+   // image = img.loadImage(imageloc);
+   // //image2 = img2.loadImage(imageloc2);
+   // cv::startWindowThread();
    
-   cv::namedWindow(windowName, cv::WINDOW_AUTOSIZE);
-   cv::namedWindow(windowName2, cv::WINDOW_AUTOSIZE);
+   // cv::namedWindow(windowName, cv::WINDOW_AUTOSIZE);
+   // //cv::namedWindow(windowName2, cv::WINDOW_AUTOSIZE);
    
-   cv::moveWindow(windowName, 100, 100);
-   cv::moveWindow(windowName, 400, 100);
    
-   cv::imshow(windowName, image);
-   cv::imshow(windowName2, image2)
+   // cv::moveWindow(windowName, 50, 100);
+   // //cv::moveWindow(windowName2, image.cols+55, 100);
    
-   if (cv::waitKey(30) == -1)
-   {
-      cv::destroyWindow(windowName);
-   }
+   
+   // cv::imshow(windowName, image);
+   // //cv::imshow(windowName, image2);
+   
+   // // if (cv::waitKey(30) == -1)
+   // // {
+   // //    cv::destroyWindow(windowName);
+   // // }
+   cv::startWindowThread();
+IplImage* img1 = cvLoadImage( imageloc.c_str() );
+IplImage* img2 = cvLoadImage( imageloc2.c_str() );
+
+int dstWidth=img1->width+img2->width;
+int dstHeight=std::max(img1->height, img2->height);
+
+IplImage* dst=cvCreateImage(cvSize(dstWidth,dstHeight),IPL_DEPTH_8U,3); 
+
+cvSetImageROI(dst, cvRect(0, 0,img1->width,img1->height) );
+cvCopy(img1,dst,NULL);
+cvResetImageROI(dst);
+
+cvSetImageROI(dst, cvRect(img1->width , 0,img2->width,img2->height) );
+cvCopy(img2,dst,NULL);
+cvResetImageROI(dst);
+
+
+cvNamedWindow( "display", CV_WINDOW_AUTOSIZE );
+cvShowImage( "display", dst );
+//cvWaitKey(0);
 }
    
 
 void imgLoader::displayImage(std::string imageloc)
 {
    imgLoader img;
+   std::string display = "display";
    cv::Mat image;
+   cv::startWindowThread();
    std::string windowName = "image viewer alpha"; 
    image = img.loadImage(imageloc);
-   cv::namedWindow(windowName, cv::WINDOW_AUTOSIZE);
-   cv::moveWindow(windowName, 100, 100);
-   cv::imshow(windowName, image);  
-   if (cv::waitKey(30) == -1)
-   {
-      cv::destroyWindow(windowName);
-   }
+   cv::namedWindow(display, cv::WINDOW_AUTOSIZE);
+   cv::imshow(display, image);  
+
    
 }
 

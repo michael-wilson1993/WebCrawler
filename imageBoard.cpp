@@ -23,13 +23,13 @@
 	{
 		system("clear");
 		printf("\033[09;32m");
-		cout << "|    |                                             |";
+		cout << "|    |                                                                                                                    |";
 		printf("\033[00;32m");
-		cout << endl << "| #  |        ";
+		cout << endl << "| #  |                            ";
 		printf("\033[01;31m");
-		cout <<"Name";
+		cout <<"Name ";
 		printf("\033[00;32m");
-		cout << "         " ;
+		cout << "                                                           " ;
 		printf("\033[0;35m");
 		cout << "    " ;
 		printf("\033[00;32m");
@@ -43,7 +43,7 @@
 		printf("\033[00;32m");
 		cout << "    |" << endl;
 		printf("\033[09;32m");
-		cout << "|    |                                             |" << endl;
+		cout << "|    |                                                                                                                    |" << endl;
 		printf("\033[00;32m");
 
 
@@ -65,7 +65,7 @@
 			{
 				
 				printf("\033[01;33m");
-				cout << " " << std::setw(44) << left  << names[x];
+				cout << " " << std::setw(114) << left  << names[x];
 				printf("\033[00;32m");
 
 			}
@@ -73,14 +73,14 @@
 			{
 
 				printf("\033[01;31m");
-				cout << " " << std::setw(44) << left  << names[x];
+				cout << " " << std::setw(114) << left  << names[x];
 				printf("\033[00;32m");
 
 			}
 
 			cout << '|' << endl;
 			printf("\033[09;32m");
-			cout << "|    |                                             |" << endl;
+			cout << "|    |                                                                                                                    |" << endl;
 			printf("\033[00;32m");
 		}
 		cout << "press esc to go back!" << endl;

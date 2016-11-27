@@ -88,13 +88,30 @@ bool WebScraper::imageScraper(std::string link, std::vector<std::string> &picNam
 
       startNewName += newName + getExtension(str);
 
+
+
+
+       std::vector<std::string>::iterator it = std::find(picName.begin(), picName.end(), startNewName);
+      if( it == picName.end())
+      {
+        img.displayImage(str);
+        picName.push_back(startNewName);
+        std::sort (picName.begin(), picName.end());
+        updateImageFile(startNewName);
+        //sleep(.5);
+      } 
+      else
+      {
+        int x;
+        std::cout << "duplicates found\n\n" << str; 
+        img.displayImage(str, *it);
+        sleep(1);
+      }
+
       if (rename(str.c_str(), startNewName.c_str()) == 0)
         std::cout << "\n\nfile successfully renamed\n\n";
       else
         std::cout << "\n\nError renaming file\n\n";
-
-      picName.push_back(startNewName);
-      updateImageFile(startNewName);
 
       return true;
 
@@ -148,7 +165,7 @@ bool WebScraper::imageScraper(std::string link, std::vector<std::string> &picNam
    if(curl)
    {
      curl_easy_setopt(curl, CURLOPT_URL, link.c_str());
-     curl_easy_setopt(curl, CURLOPT_TIMEOUT, 10);
+     curl_easy_setopt(curl, CURLOPT_TIMEOUT, 3);
      curl_easy_setopt(curl, CURLOPT_VERBOSE, 1);
      curl_easy_setopt (curl, CURLOPT_PORT , 80);
      curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, CurlWrite_CallbackFunc_StdString);
