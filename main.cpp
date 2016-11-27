@@ -35,7 +35,7 @@ int main()
 
     string url = "http://disney.wikia.com/wiki/The_Disney_Wiki";
     //cout << "please enter Website url\n";
-    int depth =10;
+    int depth =1;
     //cin >> url;
     //cout << "\nPlease enter depth:\n";
    // cin >> depth;
@@ -83,7 +83,7 @@ int main()
 void loadImageVector(vector<string> &names)
 {
     string line;
-    ifstream fin("savedImages");
+    ifstream fin("logFiles/savedImages");
     if(fin.is_open())
     while(!fin.eof())
     {
@@ -94,7 +94,7 @@ void loadImageVector(vector<string> &names)
 void loadvisitedLinks(std::set<std::string> &link)
 {
     string line;
-    ifstream fin("VisitedLinks");
+    ifstream fin("logFiles/VisitedLinks");
     if(fin.is_open())
     while(!fin.eof())
     {

@@ -78,27 +78,43 @@ std::string imgLoader::hashImage(std::string filename, int hashingSize)
    for(int x = 0; x < hashingSize; x++)
       for(int y = 0; y < hashingSize; y++)
       {
-         //std::cout << "( " << x*divx << " , " << (x*divx)+divx << " ) - ";
-         //std::cout << "( " << y*divy << " , " << (y*divy)+divy << " )" << std::endl;
-         if (retVal == "")
+         if(x%3 == 0)
          {
-            for(int RGB = 0; RGB < 3; RGB++)
-               if(RGB == 0)
-                  retVal += getMeanValue(img, x*divx, y*divy, (x*divx)+divx,  (y*divy)+divy, RGB);
+            retVal += "-";
+            retVal += getMeanValue(img, x*divx, y*divy, (x*divx)+divx,  (y*divy)+divy, 0);
+         }
+            if(x%3 == 1)
+            {
+            retVal += "-";
+            retVal += getMeanValue(img, x*divx, y*divy, (x*divx)+divx,  (y*divy)+divy, 1);
+            }
                else
                {
-                  retVal += "-";
-                  retVal += getMeanValue(img, x*divx, y*divy, (x*divx)+divx,  (y*divy)+divy, RGB);
-               }
-         }
-         else
-         {
-             for(int RGB = 0; RGB < 3; RGB++)
-             {
             retVal += "-";
-            retVal += getMeanValue(img, x*divx+1, y*divy+1, (x*divx)+divx,  (y*divy)+divy, RGB);
-         }
-         }
+            retVal += getMeanValue(img, x*divx, y*divy, (x*divx)+divx,  (y*divy)+divy, 2);
+               }
+
+         // //std::cout << "( " << x*divx << " , " << (x*divx)+divx << " ) - ";
+         // //std::cout << "( " << y*divy << " , " << (y*divy)+divy << " )" << std::endl;
+         // if (retVal == "")
+         // {
+         //    for(int RGB = 0; RGB < 3; RGB++)
+         //       if(RGB == 0)
+         //          retVal += getMeanValue(img, x*divx, y*divy, (x*divx)+divx,  (y*divy)+divy, RGB);
+         //       else
+         //       {
+         //          retVal += "-";
+         //          retVal += getMeanValue(img, x*divx, y*divy, (x*divx)+divx,  (y*divy)+divy, RGB);
+         //       }
+         // }
+         // else
+         // {
+         //     for(int RGB = 0; RGB < 3; RGB++)
+         //     {
+         //    retVal += "-";
+         //    retVal += getMeanValue(img, x*divx+1, y*divy+1, (x*divx)+divx,  (y*divy)+divy, RGB);
+         // }
+         // }
       }
       return retVal;// + std::to_string(img.rows) + "-" +std::to_string(img.cols);
 }
@@ -106,41 +122,14 @@ std::string imgLoader::hashImage(std::string filename, int hashingSize)
 
 void imgLoader::displayImage(std::string imageloc, std::string imageloc2)
 {
-   // imgLoader img;
-   // imgLoader img2;
-   
-   // cv::Mat image;
-   // cv::Mat image2;
-   
-   // std::string windowName = "image viewer alpha";
-   // //std::string windowName2 = "image viewer beta";
-   
-   // image = img.loadImage(imageloc);
-   // //image2 = img2.loadImage(imageloc2);
-   // cv::startWindowThread();
-   
-   // cv::namedWindow(windowName, cv::WINDOW_AUTOSIZE);
-   // //cv::namedWindow(windowName2, cv::WINDOW_AUTOSIZE);
-   
-   
-   // cv::moveWindow(windowName, 50, 100);
-   // //cv::moveWindow(windowName2, image.cols+55, 100);
-   
-   
-   // cv::imshow(windowName, image);
-   // //cv::imshow(windowName, image2);
-   
-   // // if (cv::waitKey(30) == -1)
-   // // {
-   // //    cv::destroyWindow(windowName);
-   // // }
+
    cv::startWindowThread();
 IplImage* img1 = cvLoadImage( imageloc.c_str() );
 IplImage* img2 = cvLoadImage( imageloc2.c_str() );
 
-int dstWidth=img1->width+img2->width;
-if(dstWidth > 1000)
-return;
+int dstWidth=img1->width+img2->width + 1;
+if(dstWidth > 2000)
+   return;
 int dstHeight=std::max(img1->height, img2->height);
 
 IplImage* dst=cvCreateImage(cvSize(dstWidth,dstHeight),IPL_DEPTH_8U,3); 

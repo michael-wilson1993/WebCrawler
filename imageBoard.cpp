@@ -2,8 +2,48 @@
 #include "imageBoard.h"
 #include "MainMenu.h"
 #include "imgLoader.h"
+#include "WebScraper.h"
+#include <sys/time.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <iomanip>
+#include <fstream>
 
+void logTimes(int time1, int time2)
+{
+	std::ofstream fout;
+  fout.open("logFiles/timeLog.txt", std::ofstream::out | std::ofstream::app);
+  fout << "<SearchFromFile: " << setw(4) << left << time1 << "> <searchFromUrl: " << setw(4) << left << time2 << ">" <<  std::endl;
+  fout.close();
+}
 
+string findLinkFromkey(std::string key )
+{
+	std::string line, ret;
+	bool flag = false;
+    std::ifstream fin("logFiles/lookUpTable.txt");
+    if(fin.is_open())
+    while(!fin.eof())
+    {
+        getline(fin, line);
+        if(line.find(key)!= std::string::npos)
+        {
+        	for(int x = 0 ;x < line.size(); x++)
+        	{
+        		if(line[x] == '|')
+        			flag = true;
+        		else if(flag) // key was found
+        		{
+        			ret += line[x];
+        		}
+        	}
+        	if(flag)
+        		return ret;
+        }
+        
+    }
+    return "";
+}
 
   std::string imageBoard::menufunc(string &opt, std::vector<std::string> names)
 {
@@ -94,8 +134,37 @@
 		{
 			if(size > 0)
 			{
+				long mtime1, mtime2;
+				{
 				imgLoader img;
+				struct timeval start, end;
+				long  seconds, useconds; 
+				gettimeofday(&start, NULL);
 				img.displayImage(names[curs]);
+				gettimeofday(&end, NULL);
+				seconds  = end.tv_sec  - start.tv_sec;
+    			useconds = end.tv_usec - start.tv_usec;
+    			mtime1 = ((seconds) * 1000 + useconds/1000.0) + 0.5;
+    			
+				}
+
+				{
+								imgLoader img;
+				struct timeval start, end;
+				long  seconds, useconds; 
+				gettimeofday(&start, NULL);
+    			std::string link = findLinkFromkey(names[curs]);
+    			WebScraper web;
+    			web.downloadToTemp(link);
+    						gettimeofday(&end, NULL);
+				seconds  = end.tv_sec  - start.tv_sec;
+    			useconds = end.tv_usec - start.tv_usec;
+    			mtime2 = ((seconds) * 1000 + useconds/1000.0) + 0.5;
+    			
+    			}	
+    			logTimes(mtime1, mtime2);
+
+
 			}
 		}
 

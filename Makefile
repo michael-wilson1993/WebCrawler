@@ -17,8 +17,11 @@ webCrawl: $(OBJS)
 
 clean:
 	rm -f *.o *~ *% *# .#*
-	rm VisitedLinks
-	rm savedImages
+	rm logFiles/VisitedLinks
+	rm logFiles/savedImages
+	rm logFiles/lookUpTable.txt
+	rm logFiles/timeLog.txt
+	rm img/*
 
 clean-all:
 	rm -f *.o *~ *% *# .#*
