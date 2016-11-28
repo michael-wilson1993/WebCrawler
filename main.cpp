@@ -67,7 +67,8 @@ int main()
         else if(opt[opt.size()-1] == '=')
         {
             opt.pop_back();
-            WebScraper Crawler(opt, 1, v, picNames);
+            WebScraper Crawler;
+            Crawler.imageScraper(opt, picNames);
         }
         else
         {
