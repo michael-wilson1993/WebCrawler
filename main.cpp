@@ -18,43 +18,29 @@ void loadvisitedLinks(std::set<std::string> &link);
 
 int main()
 {
-    // imgLoader load;
-    //  std::cout << "\n\n\n " << load.hashImage("img/http:__vignette3.wikia.nocookie.net_disney_images_0_0f_Uncle_Scrooge_thumbnail.jpg_revision_latest_scale-to-width-down_120?cb=20161101114226",4);
-
-    // return 0;
-
     struct termios term;
     tcgetattr(STDIN_FILENO, &term);
     term.c_lflag &= ~ICANON;
     tcsetattr(STDIN_FILENO, TCSANOW, &term);
 
-
     vector<string> picNames;
     std::string opt;
 
-
+    // url name, initialized just in case
     string url = "http://disney.wikia.com/wiki/The_Disney_Wiki";
-    //cout << "please enter Website url\n";
-    int depth =5;
-    //cin >> url;
-    //cout << "\nPlease enter depth:\n";
-   // cin >> depth;sd
+    
+    // depth that the search will go
+    int depth = 5;
+    
     std::set<std::string> v;
     loadvisitedLinks(v);
     loadImageVector(picNames);
-    
-    //Crawler.imageScraper("http://vignette1.wikia.nocookie.net/disney/images/b/bc/Wiki.png/revision/latest?cb=20150817203131");
-     // cout << "\n\n Disp \n\n";
-     // for (std::set<std::string>::iterator i = v.begin(); i != v.end(); i++) 
-     // 	std::cout << *i << "\n";
 
-    //for(int x = 0; x < v.size();x++)
-       //cout << x << ": " << v[x] << endl;
-
+    // creates a menu that asks for user input
     imageBoard board;
-    //board.menufunc(opt, picNames);
     MainMenu menu;
 
+    // runs while the exit button isn't clicked
     while(true)
     {
         opt = menu.menufunc(opt);
@@ -74,15 +60,12 @@ int main()
         {
             WebScraper Crawler(opt, depth, v, picNames);
         }
-
     }
-
-
-
 }
 
 void loadImageVector(vector<string> &names)
 {
+   // reads in images until the end of file
     string line;
     ifstream fin("logFiles/savedImages");
     if(fin.is_open())
@@ -94,6 +77,7 @@ void loadImageVector(vector<string> &names)
 }
 void loadvisitedLinks(std::set<std::string> &link)
 {
+   // reads visited links
     string line;
     ifstream fin("logFiles/VisitedLinks");
     if(fin.is_open())
