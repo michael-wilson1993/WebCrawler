@@ -47,8 +47,7 @@ string findLinkFromkey(std::string key )
 
   std::string imageBoard::menufunc(string &opt, std::vector<std::string> names)
 {
-	
-	
+
 
 	unsigned int curs = 0, loopProtect = 0;
 	unsigned int size = names.size();

@@ -149,7 +149,8 @@ bool WebScraper::downloadToTemp(std::string link)
 
           imgLoader img;
           std::string newName = img.hashImage(str, 6), startNewName = "img/";
-
+          if(newName == "")
+            return false;
           startNewName += newName + getExtension(str);
 
           std::vector<std::string>::iterator it = std::find(picName.begin(), picName.end(), startNewName);

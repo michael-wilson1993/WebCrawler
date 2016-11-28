@@ -70,7 +70,7 @@ std::string imgLoader::hashImage(std::string filename, int hashingSize)
    cv::Mat img = cv::imread(filename);
    std::string retVal = "";
    if(img.rows <= hashingSize || img.cols <= hashingSize)
-      return "img/error-Image.png";
+      return "";
 
    int divx = (img.rows/hashingSize);
    int divy = (img.cols/hashingSize);
@@ -151,19 +151,37 @@ cvShowImage( "display", dst );
 
 void imgLoader::displayImage(std::string imageloc)
 {
-   imgLoader img;
-   std::string display = "display";
+   // imgLoader img;
+   // std::string display = "display";
 
-   cv::Mat image;
-   image = img.loadImage(imageloc);
-   if(image.cols > 1000)
-      return;
-   cv::startWindowThread();
-   std::string windowName = "image viewer alpha"; 
+   // cv::Mat image;
+   // image = img.loadImage(imageloc);
+   // if(image.cols > 1000)
+   //    return;
+   // cv::startWindowThread();
+   // std::string windowName = "image viewer alpha"; 
    
-   cv::namedWindow(display, cv::WINDOW_AUTOSIZE);
-   cv::imshow(display, image);  
+   // cv::namedWindow(display, cv::WINDOW_AUTOSIZE);
+   // cv::imshow(display, image);  
+   cv::startWindowThread();
+IplImage* img1 = cvLoadImage( imageloc.c_str() );
 
+
+int dstWidth=img1->width+1;
+
+int dstHeight=img1->height;
+
+IplImage* dst=cvCreateImage(cvSize(dstWidth,dstHeight),IPL_DEPTH_8U,3); 
+
+cvSetImageROI(dst, cvRect(0, 0,img1->width,img1->height) );
+cvCopy(img1,dst,NULL);
+cvResetImageROI(dst);
+
+
+
+cvNamedWindow( "display", CV_WINDOW_AUTOSIZE );
+cvShowImage( "display", dst );
+//cvWaitKey(0);
    
 }
 
