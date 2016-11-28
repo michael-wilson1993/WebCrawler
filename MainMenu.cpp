@@ -9,7 +9,7 @@ std::string MainMenu::menufunc(string &opt)
 	unsigned int curs=0, Ssize =0;
 	char choice;
 	const unsigned int OPT = 4;
-	string option[OPT]= {"list Images", "crawl link", "check Image", "exit"};
+	string option[OPT]= {"List Images", "Crawl Link", "Check Image", "Exit"};
 
 //save exit resume
 	while(true)
