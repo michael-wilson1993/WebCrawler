@@ -94,27 +94,6 @@ std::string imgLoader::hashImage(std::string filename, int hashingSize)
             retVal += getMeanValue(img, x*divx, y*divy, (x*divx)+divx,  (y*divy)+divy, 2);
                }
 
-         // //std::cout << "( " << x*divx << " , " << (x*divx)+divx << " ) - ";
-         // //std::cout << "( " << y*divy << " , " << (y*divy)+divy << " )" << std::endl;
-         // if (retVal == "")
-         // {
-         //    for(int RGB = 0; RGB < 3; RGB++)
-         //       if(RGB == 0)
-         //          retVal += getMeanValue(img, x*divx, y*divy, (x*divx)+divx,  (y*divy)+divy, RGB);
-         //       else
-         //       {
-         //          retVal += "-";
-         //          retVal += getMeanValue(img, x*divx, y*divy, (x*divx)+divx,  (y*divy)+divy, RGB);
-         //       }
-         // }
-         // else
-         // {
-         //     for(int RGB = 0; RGB < 3; RGB++)
-         //     {
-         //    retVal += "-";
-         //    retVal += getMeanValue(img, x*divx+1, y*divy+1, (x*divx)+divx,  (y*divy)+divy, RGB);
-         // }
-         // }
       }
       return retVal;// + std::to_string(img.rows) + "-" +std::to_string(img.cols);
 }

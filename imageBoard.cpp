@@ -122,7 +122,7 @@ string findLinkFromkey(std::string key )
 			cout << "|    |                                                                                                                    |" << endl;
 			printf("\033[00;32m");
 		}
-		cout << "press esc to go back!" << endl;
+		cout << "m = select ---- press esc to go back!" << endl;
 		
 		cin >> choice;
 		if(choice == 27)
